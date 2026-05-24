@@ -41,7 +41,7 @@ export const Route = createFileRoute("/category/$slug")({
 });
 
 function CategoryPage() {
-  const { cat, items } = Route.useLoaderData();
+  const { cat, items } = Route.useLoaderData() as { cat: Cat; items: Product[] };
   return (
     <div className="min-h-screen flex flex-col">
       <Header />

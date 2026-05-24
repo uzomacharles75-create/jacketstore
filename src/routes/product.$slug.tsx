@@ -43,7 +43,7 @@ export const Route = createFileRoute("/product/$slug")({
 });
 
 function ProductPage() {
-  const { product } = Route.useLoaderData();
+  const { product } = Route.useLoaderData() as { product: Product };
   const related = products.filter((p) => p.slug !== product.slug && p.categorySlug === product.categorySlug).slice(0, 4);
   const fallbackRelated = related.length ? related : products.filter((p) => p.slug !== product.slug).slice(0, 4);
 
