@@ -3,10 +3,10 @@ import { MessageCircle, Check, ArrowLeft } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ProductCard } from "@/components/site/ProductCard";
-import { getProduct, products, waLink } from "@/lib/products";
+import { getProduct, products, waLink, type Product } from "@/lib/products";
 
 export const Route = createFileRoute("/product/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): { product: Product } => {
     const product = getProduct(params.slug);
     if (!product) throw notFound();
     return { product };

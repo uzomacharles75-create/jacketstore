@@ -2,10 +2,12 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ProductCard } from "@/components/site/ProductCard";
-import { categories, getProductsByCategory } from "@/lib/products";
+import { categories, getProductsByCategory, type Product } from "@/lib/products";
+
+type Cat = { slug: string; name: string };
 
 export const Route = createFileRoute("/category/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): { cat: Cat; items: Product[] } => {
     const cat = categories.find((c) => c.slug === params.slug);
     if (!cat) throw notFound();
     return { cat, items: getProductsByCategory(params.slug) };
