@@ -4,21 +4,25 @@ import { Search } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ProductCard } from "@/components/site/ProductCard";
-import { products, categories } from "@/lib/products";
+import type { Product, Category } from "@/lib/products";
+import { listProducts, listCategories } from "@/lib/store.functions";
 
 export const Route = createFileRoute("/shop")({
+  loader: async () => {
+    const [products, categories] = await Promise.all([listProducts(), listCategories()]);
+    return { products, categories };
+  },
   head: () => ({
     meta: [
       { title: "Shop All Jackets — J.D & CO BW" },
       { name: "description", content: "Browse premium jackets, hoodies, leather and safari apparel. Order on WhatsApp." },
-      { property: "og:title", content: "Shop All Jackets — J.D & CO BW" },
-      { property: "og:description", content: "Premium jackets, hoodies, leather and corporate apparel." },
     ],
   }),
   component: Shop,
 });
 
 function Shop() {
+  const { products, categories } = Route.useLoaderData() as { products: Product[]; categories: Category[] };
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<string>("all");
   const [sort, setSort] = useState<"featured" | "price-asc" | "price-desc">("featured");
@@ -31,7 +35,7 @@ function Shop() {
     if (sort === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
     if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
     return list;
-  }, [q, cat, sort]);
+  }, [q, cat, sort, products]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -59,7 +63,7 @@ function Shop() {
             <div className="flex gap-2 flex-wrap">
               <select value={cat} onChange={(e) => setCat(e.target.value)} className="px-3 py-2.5 rounded-md border border-border bg-card text-sm">
                 <option value="all">All categories</option>
-                {categories.filter(c => !["new-arrivals","best-sellers","mens-jackets"].includes(c.slug)).map((c) => (
+                {categories.map((c) => (
                   <option key={c.slug} value={c.slug}>{c.name}</option>
                 ))}
               </select>

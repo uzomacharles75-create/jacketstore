@@ -1,13 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, MessageCircle, Wind, Droplets, Layers, Feather, Compass, Shield, Star, Building2, HardHat, Quote } from "lucide-react";
-import heroImg from "@/assets/hero-jacket.jpg";
+import heroImg from "@/assets/hero-safari-model.jpg";
 import customImg from "@/assets/custom-corporate.jpg";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ProductCard } from "@/components/site/ProductCard";
-import { products, categories, waLink } from "@/lib/products";
+import { waLink, type Product, type Category } from "@/lib/products";
+import { listProducts, listCategories } from "@/lib/store.functions";
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    const [products, categories] = await Promise.all([listProducts(), listCategories()]);
+    return { products, categories };
+  },
   head: () => ({
     meta: [
       { title: "J.D & CO BW — Premium Jackets & Custom Apparel" },
@@ -35,6 +40,7 @@ const testimonials = [
 ];
 
 function Home() {
+  const { products, categories } = Route.useLoaderData() as { products: Product[]; categories: Category[] };
   const featured = products.filter((p) => p.featured).slice(0, 6);
 
   return (
@@ -43,7 +49,7 @@ function Home() {
       <main className="flex-1">
         <section className="relative overflow-hidden bg-secondary text-secondary-foreground">
           <div className="absolute inset-0">
-            <img src={heroImg} alt="Explorer in safari jacket at sunset" className="h-full w-full object-cover opacity-60" width={1600} height={1100} />
+            <img src={heroImg} alt="Model wearing a J.D & CO BW safari jacket in the Botswana bush at golden hour" className="h-full w-full object-cover opacity-70" width={1600} height={1024} />
             <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/70 to-transparent" />
           </div>
           <div className="container-x relative grid lg:grid-cols-2 gap-12 py-24 sm:py-32 lg:py-40">
@@ -86,17 +92,19 @@ function Home() {
           </div>
         </section>
 
-        <section className="container-x py-16 sm:py-20">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">Hand-picked</p>
-              <h2 className="display text-3xl sm:text-4xl text-secondary mt-2">Featured products</h2>
+        {featured.length > 0 && (
+          <section className="container-x py-16 sm:py-20">
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">Hand-picked</p>
+                <h2 className="display text-3xl sm:text-4xl text-secondary mt-2">Featured products</h2>
+              </div>
             </div>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {featured.map((p) => <ProductCard key={p.slug} product={p} />)}
-          </div>
-        </section>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              {featured.map((p) => <ProductCard key={p.slug} product={p} />)}
+            </div>
+          </section>
+        )}
 
         <section className="bg-secondary text-secondary-foreground py-20">
           <div className="container-x">

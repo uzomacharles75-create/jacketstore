@@ -2,15 +2,16 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ProductCard } from "@/components/site/ProductCard";
-import { categories, getProductsByCategory, type Product } from "@/lib/products";
-
-type Cat = { slug: string; name: string };
+import type { Product } from "@/lib/products";
+import { listProducts, listCategories } from "@/lib/store.functions";
 
 export const Route = createFileRoute("/category/$slug")({
-  loader: ({ params }): { cat: Cat; items: Product[] } => {
+  loader: async ({ params }) => {
+    const [categories, products] = await Promise.all([listCategories(), listProducts()]);
     const cat = categories.find((c) => c.slug === params.slug);
     if (!cat) throw notFound();
-    return { cat, items: getProductsByCategory(params.slug) };
+    const items = products.filter((p) => p.categorySlug === params.slug);
+    return { cat, items };
   },
   head: ({ loaderData }) => ({
     meta: loaderData ? [
@@ -41,7 +42,7 @@ export const Route = createFileRoute("/category/$slug")({
 });
 
 function CategoryPage() {
-  const { cat, items } = Route.useLoaderData() as { cat: Cat; items: Product[] };
+  const { cat, items } = Route.useLoaderData() as { cat: { name: string; slug: string }; items: Product[] };
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
