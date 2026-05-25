@@ -6,6 +6,12 @@ import leather from "@/assets/product-leather.jpg";
 import hoodie from "@/assets/product-hoodie.jpg";
 import safety from "@/assets/product-safety.jpg";
 import womens from "@/assets/product-womens.jpg";
+import jLeatherBiker from "@/assets/jackets/leather-biker.jpg";
+import jSafariSoftshell from "@/assets/jackets/safari-softshell.jpg";
+import jOliveBomber from "@/assets/jackets/olive-bomber.jpg";
+import jBlackPuffer from "@/assets/jackets/black-puffer.jpg";
+import jBeigeTrench from "@/assets/jackets/beige-trench.jpg";
+import jNavyDenim from "@/assets/jackets/navy-denim.jpg";
 
 export const WHATSAPP_NUMBER = "26771234567";
 export const BRAND = {
