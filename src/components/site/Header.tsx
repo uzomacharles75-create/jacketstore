@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Menu, X, MessageCircle, LogIn, LayoutDashboard } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { waLink } from "@/lib/products";
+import { supabase } from "@/integrations/supabase/client";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -14,6 +15,18 @@ const nav = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [session, setSession] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(!!data.session);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, s) => {
+      setSession(!!s);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="container-x flex h-20 items-center justify-between gap-4">
@@ -49,6 +62,13 @@ export function Header() {
           >
             <MessageCircle className="h-4 w-4" /> WhatsApp
           </a>
+          <Link
+            to={session ? "/admin" : "/login"}
+            className="hidden sm:inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold text-secondary hover:bg-muted transition"
+          >
+            {session ? <LayoutDashboard className="h-4 w-4" /> : <LogIn className="h-4 w-4" />}
+            {session ? "Dashboard" : "Login"}
+          </Link>
           <button
             onClick={() => setOpen((v) => !v)}
             className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-border"
@@ -72,6 +92,14 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
+            <Link
+              to={session ? "/admin" : "/login"}
+              onClick={() => setOpen(false)}
+              className="px-3 py-3 rounded-md text-base font-medium uppercase tracking-wider text-secondary hover:bg-muted flex items-center gap-2"
+            >
+              {session ? <LayoutDashboard className="h-4 w-4" /> : <LogIn className="h-4 w-4" />}
+              {session ? "Dashboard" : "Admin Login"}
+            </Link>
             <a
               href={waLink("Hello J.D & CO BW, I'd like to place an order.")}
               target="_blank"
