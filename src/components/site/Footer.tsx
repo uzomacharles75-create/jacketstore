@@ -59,7 +59,10 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container-x py-5 text-xs text-secondary-foreground/60 flex flex-col sm:flex-row gap-2 justify-between">
           <p>© {new Date().getFullYear()} {BRAND.name}. All rights reserved.</p>
-          <p>Corporate · Sport · Safari</p>
+          <p>
+            Corporate · Sport · Safari ·{" "}
+            <Link to="/admin" className="hover:text-primary">Admin</Link>
+          </p>
         </div>
       </div>
     </footer>
