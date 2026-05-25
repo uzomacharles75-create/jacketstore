@@ -35,6 +35,12 @@ const FALLBACK_IMAGES: Record<string, string> = {
   "core-pullover-hoodie": hoodie,
   "hi-vis-pro-jacket": safety,
   "atelier-wool-coat": womens,
+  "kalahari-leather-biker": jLeatherBiker,
+  "okavango-safari-softshell": jSafariSoftshell,
+  "gaborone-olive-bomber": jOliveBomber,
+  "chobe-black-puffer": jBlackPuffer,
+  "tuli-beige-trench": jBeigeTrench,
+  "maun-navy-denim": jNavyDenim,
 };
 
 const PLACEHOLDER =
