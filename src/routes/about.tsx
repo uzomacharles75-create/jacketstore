@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import heroImg from "@/assets/hero-jacket.jpg";
+import heroImg from "@/assets/hero-safari-model.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
