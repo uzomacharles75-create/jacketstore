@@ -1,22 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { MessageCircle, Upload, Building2, HardHat, Shield, Utensils, GraduationCap, Heart, Truck, Calendar, Trophy, Flame } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import customImg from "@/assets/custom-corporate.jpg";
 import { waLink } from "@/lib/products";
-
-export const Route = createFileRoute("/custom-orders")({
-  head: () => ({
-    meta: [
-      { title: "Custom Orders & Corporate Uniforms — J.D & CO BW" },
-      { name: "description", content: "Branded jackets, uniforms and workwear for companies, construction crews, security, schools and event teams across Botswana." },
-      { property: "og:title", content: "Custom Orders — J.D & CO BW" },
-      { property: "og:description", content: "Branded uniforms and bulk apparel for organisations of all sizes." },
-    ],
-  }),
-  component: CustomOrders,
-});
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 const clients = [
   { icon: Building2, label: "Corporate" },
@@ -31,7 +19,11 @@ const clients = [
   { icon: Trophy, label: "Sports Teams" },
 ];
 
-function CustomOrders() {
+export default function CustomOrdersPage() {
+  usePageMeta(
+    "Custom Orders & Corporate Uniforms — J.D & CO BW",
+    "Branded jackets, uniforms and workwear for companies, construction crews, security, schools and event teams across Botswana.",
+  );
   const [form, setForm] = useState({
     company: "", contact: "", phone: "", email: "",
     product: "Company Jackets", quantity: "", colors: "", notes: "",

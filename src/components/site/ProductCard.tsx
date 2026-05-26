@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 import { type Product, waLink } from "@/lib/products";
 import { formatPula } from "@/lib/format";
@@ -6,7 +6,7 @@ import { formatPula } from "@/lib/format";
 export function ProductCard({ product }: { product: Product }) {
   return (
     <div className="group flex flex-col bg-card rounded-lg overflow-hidden border border-border/60 hover:border-primary/40 hover:shadow-xl transition-all">
-      <Link to="/product/$slug" params={{ slug: product.slug }} className="block relative aspect-[4/5] overflow-hidden bg-muted">
+      <Link to={`/product/${product.slug}`} className="block relative aspect-[4/5] overflow-hidden bg-muted">
         <img
           src={product.image}
           alt={product.name}
@@ -26,7 +26,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="p-4 flex flex-col gap-3 flex-1">
         <div className="flex-1">
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{product.category}</p>
-          <Link to="/product/$slug" params={{ slug: product.slug }} className="block mt-1">
+          <Link to={`/product/${product.slug}`} className="block mt-1">
             <h3 className="text-base font-semibold text-secondary hover:text-primary transition-colors leading-tight">{product.name}</h3>
           </Link>
           <p className="mt-2 text-lg font-bold text-secondary">{formatPula(product.price)}</p>

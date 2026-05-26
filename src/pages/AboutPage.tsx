@@ -1,21 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import heroImg from "@/assets/hero-safari-model.jpg";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — J.D & CO BW" },
-      { name: "description", content: "J.D & CO BW manufactures premium jackets and corporate apparel in Botswana. Our story, mission and values." },
-      { property: "og:title", content: "About J.D & CO BW" },
-      { property: "og:description", content: "Jacket manufacturers of distinction — corporate, sport and safari." },
-    ],
-  }),
-  component: About,
-});
-
-function About() {
+export default function AboutPage() {
+  usePageMeta(
+    "About — J.D & CO BW",
+    "J.D & CO BW manufactures premium jackets and corporate apparel in Botswana. Our story, mission and values.",
+  );
   return (
     <div className="min-h-screen flex flex-col">
       <Header />

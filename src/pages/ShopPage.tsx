@@ -1,28 +1,21 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ProductCard } from "@/components/site/ProductCard";
-import type { Product, Category } from "@/lib/products";
-import { listProducts, listCategories } from "@/lib/store.functions";
+import { api } from "@/lib/api";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
-export const Route = createFileRoute("/shop")({
-  loader: async () => {
-    const [products, categories] = await Promise.all([listProducts(), listCategories()]);
-    return { products, categories };
-  },
-  head: () => ({
-    meta: [
-      { title: "Shop All Jackets — J.D & CO BW" },
-      { name: "description", content: "Browse premium jackets, hoodies, leather and safari apparel. Order on WhatsApp." },
-    ],
-  }),
-  component: Shop,
-});
+export default function ShopPage() {
+  usePageMeta(
+    "Shop All Jackets — J.D & CO BW",
+    "Browse premium jackets, hoodies, leather and safari apparel. Order on WhatsApp.",
+  );
+  const { data: products = [] } = useQuery({ queryKey: ["products"], queryFn: api.listProducts });
+  const { data: categories = [] } = useQuery({ queryKey: ["categories"], queryFn: api.listCategories });
 
-function Shop() {
-  const { products, categories } = Route.useLoaderData() as { products: Product[]; categories: Category[] };
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<string>("all");
   const [sort, setSort] = useState<"featured" | "price-asc" | "price-desc">("featured");

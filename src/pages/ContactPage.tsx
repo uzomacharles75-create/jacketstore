@@ -1,23 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { MessageCircle, Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { BRAND, waLink } from "@/lib/products";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — J.D & CO BW" },
-      { name: "description", content: "Get in touch with J.D & CO BW. WhatsApp, email or visit us in Gaborone, Botswana." },
-      { property: "og:title", content: "Contact J.D & CO BW" },
-      { property: "og:description", content: "Reach out for orders, custom uniforms or any enquiry." },
-    ],
-  }),
-  component: Contact,
-});
-
-function Contact() {
+export default function ContactPage() {
+  usePageMeta("Contact — J.D & CO BW", "Get in touch with J.D & CO BW. WhatsApp, email or visit us in Gaborone, Botswana.");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const onSubmit = (e: React.FormEvent) => {

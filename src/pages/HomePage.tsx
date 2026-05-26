@@ -1,28 +1,14 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, MessageCircle, Wind, Droplets, Layers, Feather, Compass, Shield, Star, Building2, HardHat, Quote } from "lucide-react";
 import heroImg from "@/assets/hero-safari-model.jpg";
 import customImg from "@/assets/custom-corporate.jpg";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ProductCard } from "@/components/site/ProductCard";
-import { waLink, type Product, type Category } from "@/lib/products";
-import { listProducts, listCategories } from "@/lib/store.functions";
-
-export const Route = createFileRoute("/")({
-  loader: async () => {
-    const [products, categories] = await Promise.all([listProducts(), listCategories()]);
-    return { products, categories };
-  },
-  head: () => ({
-    meta: [
-      { title: "J.D & CO BW — Premium Jackets & Custom Apparel" },
-      { name: "description", content: "Designed for the wild. Made for the journey. Shop premium jackets and order corporate uniforms on WhatsApp." },
-      { property: "og:title", content: "J.D & CO BW — Designed for the Wild" },
-      { property: "og:description", content: "Softshell, puffer, leather, hoodies and corporate workwear. Direct WhatsApp ordering." },
-    ],
-  }),
-  component: Home,
-});
+import { waLink } from "@/lib/products";
+import { api } from "@/lib/api";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 const features = [
   { icon: Wind, title: "Windproof & Durable", desc: "Shield from harsh winds and rugged conditions." },
@@ -39,8 +25,13 @@ const testimonials = [
   { name: "Bonolo S.", role: "Site Foreman", text: "Reflective workwear that actually fits and lasts. Best hi-vis we've ordered in years." },
 ];
 
-function Home() {
-  const { products, categories } = Route.useLoaderData() as { products: Product[]; categories: Category[] };
+export default function HomePage() {
+  usePageMeta(
+    "J.D & CO BW — Premium Jackets & Custom Apparel",
+    "Designed for the wild. Made for the journey. Shop premium jackets and order corporate uniforms on WhatsApp.",
+  );
+  const { data: products = [] } = useQuery({ queryKey: ["products"], queryFn: api.listProducts });
+  const { data: categories = [] } = useQuery({ queryKey: ["categories"], queryFn: api.listCategories });
   const featured = products.filter((p) => p.featured).slice(0, 6);
 
   return (
@@ -84,7 +75,7 @@ function Home() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {categories.slice(0, 8).map((c) => (
-              <Link key={c.slug} to="/category/$slug" params={{ slug: c.slug }} className="group relative aspect-square rounded-lg overflow-hidden bg-secondary text-secondary-foreground flex items-end p-4 hover:bg-primary transition-colors">
+              <Link key={c.slug} to={`/category/${c.slug}`} className="group relative aspect-square rounded-lg overflow-hidden bg-secondary text-secondary-foreground flex items-end p-4 hover:bg-primary transition-colors">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,oklch(0.55_0.09_60/0.4),transparent_60%)]" />
                 <h3 className="relative display text-xl sm:text-2xl">{c.name}</h3>
               </Link>

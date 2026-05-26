@@ -1,53 +1,52 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { Link, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { MessageCircle, Check, ArrowLeft } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ProductCard } from "@/components/site/ProductCard";
-import { waLink, type Product } from "@/lib/products";
+import { waLink } from "@/lib/products";
 import { formatPula } from "@/lib/format";
-import { getProductBySlug, listProducts } from "@/lib/store.functions";
+import { api } from "@/lib/api";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
-export const Route = createFileRoute("/product/$slug")({
-  loader: async ({ params }) => {
-    const product = await getProductBySlug({ data: { slug: params.slug } });
-    if (!product) throw notFound();
-    const all = await listProducts();
-    const related = all.filter((p) => p.slug !== product.slug && p.categorySlug === product.categorySlug).slice(0, 4);
-    return { product, related: related.length ? related : all.filter((p) => p.slug !== product.slug).slice(0, 4) };
-  },
-  head: ({ loaderData }) => ({
-    meta: loaderData ? [
-      { title: `${loaderData.product.name} — J.D & CO BW` },
-      { name: "description", content: loaderData.product.description },
-      { property: "og:title", content: `${loaderData.product.name} — J.D & CO BW` },
-      { property: "og:description", content: loaderData.product.description },
-      { property: "og:image", content: loaderData.product.image },
-    ] : [],
-  }),
-  notFoundComponent: () => (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <div className="container-x py-32 text-center">
-        <h1 className="display text-4xl text-secondary">Product not found</h1>
-        <Link to="/shop" className="mt-4 inline-block text-primary underline">Back to shop</Link>
-      </div>
-      <Footer />
-    </div>
-  ),
-  errorComponent: () => (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <div className="container-x py-32 text-center">
-        <h1 className="display text-4xl text-secondary">Something went wrong</h1>
-      </div>
-      <Footer />
-    </div>
-  ),
-  component: ProductPage,
-});
+export default function ProductPage() {
+  const { slug = "" } = useParams<{ slug: string }>();
+  const { data: product, isLoading } = useQuery({
+    queryKey: ["product", slug],
+    queryFn: () => api.getProductBySlug(slug),
+  });
+  const { data: all = [] } = useQuery({ queryKey: ["products"], queryFn: api.listProducts });
 
-function ProductPage() {
-  const { product, related } = Route.useLoaderData() as { product: Product; related: Product[] };
+  usePageMeta(
+    product ? `${product.name} — J.D & CO BW` : "Product — J.D & CO BW",
+    product?.description,
+  );
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="container-x py-32 text-center text-muted-foreground">Loading…</div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="container-x py-32 text-center">
+          <h1 className="display text-4xl text-secondary">Product not found</h1>
+          <Link to="/shop" className="mt-4 inline-block text-primary underline">Back to shop</Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const related = all.filter((p) => p.slug !== product.slug && p.categorySlug === product.categorySlug).slice(0, 4);
+  const relatedFallback = related.length ? related : all.filter((p) => p.slug !== product.slug).slice(0, 4);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -111,11 +110,11 @@ function ProductPage() {
           </div>
         </section>
 
-        {related.length > 0 && (
+        {relatedFallback.length > 0 && (
           <section className="container-x py-16 border-t border-border">
             <h2 className="display text-3xl text-secondary mb-8">You may also like</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              {related.map((p) => <ProductCard key={p.slug} product={p} />)}
+              {relatedFallback.map((p) => <ProductCard key={p.slug} product={p} />)}
             </div>
           </section>
         )}
