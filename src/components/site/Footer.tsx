@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Instagram, Facebook, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { BRAND, waLink } from "@/lib/products";
@@ -26,10 +26,10 @@ export function Footer() {
           <h4 className="display text-lg mb-4">Shop</h4>
           <ul className="space-y-2 text-sm text-secondary-foreground/80">
             <li><Link to="/shop" className="hover:text-primary">All Products</Link></li>
-            <li><Link to="/category/$slug" params={{ slug: "safari" }} className="hover:text-primary">Safari Collection</Link></li>
-            <li><Link to="/category/$slug" params={{ slug: "leather-jackets" }} className="hover:text-primary">Leather Jackets</Link></li>
-            <li><Link to="/category/$slug" params={{ slug: "hoodies" }} className="hover:text-primary">Hoodies</Link></li>
-            <li><Link to="/category/$slug" params={{ slug: "best-sellers" }} className="hover:text-primary">Best Sellers</Link></li>
+            <li><Link to="/category/safari" className="hover:text-primary">Safari Collection</Link></li>
+            <li><Link to="/category/leather-jackets" className="hover:text-primary">Leather Jackets</Link></li>
+            <li><Link to="/category/hoodies" className="hover:text-primary">Hoodies</Link></li>
+            <li><Link to="/category/best-sellers" className="hover:text-primary">Best Sellers</Link></li>
           </ul>
         </div>
 
