@@ -1,5 +1,6 @@
-// Static brand/config + asset fallbacks for seeded products.
-// Live product data is loaded from the database via products.functions.ts.
+// Brand info + product/category type definitions.
+// Mock data lives in src/mocks/data.ts. Replace src/lib/api.ts with your
+// MongoDB-backed implementation when you're ready.
 import softshell from "@/assets/product-softshell.jpg";
 import puffer from "@/assets/product-puffer.jpg";
 import leather from "@/assets/product-leather.jpg";
@@ -26,8 +27,7 @@ export const BRAND = {
 export const waLink = (msg: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 
-// Fallback images for the seeded products (used until an admin uploads
-// a real image). Map by slug.
+// Image fallbacks keyed by product slug (used until your backend supplies one).
 const FALLBACK_IMAGES: Record<string, string> = {
   "wild-explorer-softshell": softshell,
   "savanna-puffer": puffer,
@@ -54,16 +54,15 @@ export function resolveProductImage(slug: string, imageUrl: string | null | unde
   return FALLBACK_IMAGES[slug] ?? PLACEHOLDER;
 }
 
-// Live product shape (matches DB row + resolved fields used by the UI).
 export type Product = {
   id: string;
   slug: string;
   name: string;
   description: string;
   price: number;
-  image: string; // resolved
+  image: string;
   imageUrl: string | null;
-  category: string; // category name
+  category: string;
   categorySlug: string;
   sizes: string[];
   colors: string[];
@@ -73,4 +72,19 @@ export type Product = {
   inStock: boolean;
 };
 
-export type Category = { id: string; slug: string; name: string };
+export type Category = { id: string; slug: string; name: string; sortOrder: number };
+
+export type CustomOrder = {
+  id: string;
+  createdAt: string;
+  company: string;
+  contactName: string;
+  phone: string;
+  email: string | null;
+  productType: string;
+  quantity: string;
+  colors: string | null;
+  notes: string | null;
+  fileUrl: string | null;
+  status: "new" | "in-progress" | "quoted" | "completed" | "archived";
+};
