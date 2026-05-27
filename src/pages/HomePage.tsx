@@ -6,6 +6,9 @@ import customImg from "@/assets/custom-corporate.jpg";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ProductCard } from "@/components/site/ProductCard";
+import { CustomCapabilitiesSection } from "@/components/site/CustomCapabilitiesSection";
+import { CustomShowcaseSection } from "@/components/site/CustomShowcaseSection";
+import { MaterialsAndFeaturesSection } from "@/components/site/MaterialsAndFeaturesSection";
 import { waLink } from "@/lib/products";
 import { api } from "@/lib/api";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -97,6 +100,8 @@ export default function HomePage() {
           </section>
         )}
 
+        <CustomCapabilitiesSection />
+
         <section className="bg-secondary text-secondary-foreground py-20">
           <div className="container-x">
             <div className="text-center mb-12">
@@ -151,6 +156,8 @@ export default function HomePage() {
           </div>
         </section>
 
+        <CustomShowcaseSection />
+
         <section className="container-x py-20">
           <div className="text-center mb-12">
             <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">What clients say</p>
@@ -172,6 +179,8 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+
+        <MaterialsAndFeaturesSection />
 
         <section className="bg-primary text-primary-foreground py-16">
           <div className="container-x flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
