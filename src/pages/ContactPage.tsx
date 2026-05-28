@@ -6,7 +6,7 @@ import { BRAND, waLink } from "@/lib/products";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
 export default function ContactPage() {
-  usePageMeta("Contact — J.D & CO BW", "Get in touch with J.D & CO BW. WhatsApp, email or visit us in Gaborone, Botswana.");
+  usePageMeta("Contact — J.D & CO BW", "Get in touch with J.D & CO BW about custom apparel for corporate, sport, safari, mining and logistics teams.");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const onSubmit = (e: React.FormEvent) => {
@@ -23,7 +23,7 @@ export default function ContactPage() {
           <div className="container-x">
             <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">Get in touch</p>
             <h1 className="display text-5xl sm:text-7xl mt-3">Let's talk.</h1>
-            <p className="mt-4 max-w-xl text-secondary-foreground/80">Questions, orders or custom uniforms — we usually reply within an hour on WhatsApp.</p>
+            <p className="mt-4 max-w-xl text-secondary-foreground/80">Questions, orders or custom uniforms for your team or sector — we usually reply within an hour on WhatsApp.</p>
           </div>
         </section>
 

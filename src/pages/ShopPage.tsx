@@ -11,7 +11,7 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 export default function ShopPage() {
   usePageMeta(
     "Shop All Jackets — J.D & CO BW",
-    "Browse premium jackets, hoodies, leather and safari apparel. Order on WhatsApp.",
+    "Browse premium jackets, uniforms and custom apparel built for corporate, sport, safari, mining and logistics teams. Order on WhatsApp.",
   );
   const { data: products = [] } = useQuery({ queryKey: ["products"], queryFn: api.listProducts });
   const { data: categories = [] } = useQuery({ queryKey: ["categories"], queryFn: api.listCategories });
@@ -37,8 +37,8 @@ export default function ShopPage() {
         <section className="bg-secondary text-secondary-foreground py-16">
           <div className="container-x">
             <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">The collection</p>
-            <h1 className="display text-4xl sm:text-6xl mt-3">Shop all products</h1>
-            <p className="mt-3 text-secondary-foreground/70 max-w-xl">From safari softshells to leather classics — built with intent, made to last.</p>
+            <h1 className="display text-4xl sm:text-6xl mt-3">Shop all styles</h1>
+            <p className="mt-3 text-secondary-foreground/70 max-w-xl">From corporate outerwear to sport, safari, mining and logistics looks — built with intent, made to last.</p>
           </div>
         </section>
 

@@ -18,7 +18,7 @@ export function Footer() {
             </div>
           </div>
           <p className="mt-4 text-sm text-secondary-foreground/70 max-w-xs">
-            Premium jackets and custom apparel — designed for the wild, made for the journey.
+            Premium jackets and custom apparel for corporate, sport, safari, mining and logistics teams.
           </p>
         </div>
 
@@ -26,9 +26,9 @@ export function Footer() {
           <h4 className="display text-lg mb-4">Shop</h4>
           <ul className="space-y-2 text-sm text-secondary-foreground/80">
             <li><Link to="/shop" className="hover:text-primary">All Products</Link></li>
-            <li><Link to="/category/safari" className="hover:text-primary">Safari Collection</Link></li>
+            <li><Link to="/custom-orders" className="hover:text-primary">Custom Apparel</Link></li>
+            <li><Link to="/category/workwear" className="hover:text-primary">Workwear</Link></li>
             <li><Link to="/category/leather-jackets" className="hover:text-primary">Leather Jackets</Link></li>
-            <li><Link to="/category/hoodies" className="hover:text-primary">Hoodies</Link></li>
             <li><Link to="/category/best-sellers" className="hover:text-primary">Best Sellers</Link></li>
           </ul>
         </div>
@@ -60,7 +60,7 @@ export function Footer() {
         <div className="container-x py-5 text-xs text-secondary-foreground/60 flex flex-col sm:flex-row gap-2 justify-between">
           <p>© {new Date().getFullYear()} {BRAND.name}. All rights reserved.</p>
           <p>
-            Corporate · Sport · Safari ·{" "}
+            Custom · Corporate · Sport · Safari · Mining · Logistics ·{" "}
             <Link to="/admin" className="hover:text-primary">Admin</Link>
           </p>
         </div>

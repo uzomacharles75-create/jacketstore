@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MessageCircle, Upload, Building2, HardHat, Shield, Utensils, GraduationCap, Heart, Truck, Calendar, Trophy, Flame } from "lucide-react";
+import { MessageCircle, Upload, Building2, Factory, HardHat, Shield, Utensils, GraduationCap, Heart, Truck, Calendar, Trophy, Flame, Leaf, Compass } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import customImg from "@/assets/custom-corporate.jpg";
@@ -8,21 +8,24 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 
 const clients = [
   { icon: Building2, label: "Corporate" },
-  { icon: HardHat, label: "Construction" },
-  { icon: Flame, label: "Firefighters" },
+  { icon: Factory, label: "Manufacturers" },
+  { icon: Trophy, label: "Sport Teams" },
+  { icon: Compass, label: "Safari Lodges" },
+  { icon: HardHat, label: "Mining Sites" },
+  { icon: Truck, label: "Logistics" },
+  { icon: Leaf, label: "Sustainable Fabrics" },
   { icon: Shield, label: "Security" },
   { icon: Utensils, label: "Restaurants & Hotels" },
   { icon: GraduationCap, label: "Schools" },
   { icon: Heart, label: "NGOs" },
-  { icon: Truck, label: "Delivery Companies" },
+  { icon: Flame, label: "Firefighters" },
   { icon: Calendar, label: "Event Staff" },
-  { icon: Trophy, label: "Sports Teams" },
 ];
 
 export default function CustomOrdersPage() {
   usePageMeta(
     "Custom Orders & Corporate Uniforms — J.D & CO BW",
-    "Branded jackets, uniforms and workwear for companies, construction crews, security, schools and event teams across Botswana.",
+    "Branded jackets, uniforms and workwear for corporate teams, manufacturers, sport clubs, safari lodges, mining crews and logistics operators across Botswana.",
   );
   const [form, setForm] = useState({
     company: "", contact: "", phone: "", email: "",
@@ -64,7 +67,7 @@ Notes: ${form.notes}`;
               Custom uniforms & branded apparel
             </h1>
             <p className="mt-5 max-w-xl text-secondary-foreground/80 text-lg">
-              We produce jackets, hoodies, workwear and event uniforms with your logo, your colors, your brand — at scale.
+              We produce jackets, hoodies, workwear and event uniforms with your logo, your colors and your sector in mind.
             </p>
           </div>
         </section>
@@ -91,7 +94,7 @@ Notes: ${form.notes}`;
               <p className="mt-4 text-muted-foreground">
                 Fill in the form and we'll send a quote within 24 hours. Prefer to chat?
               </p>
-              <a href={waLink("Hello, I would like custom uniforms for my company.")} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-full bg-whatsapp px-5 py-3 text-sm font-bold uppercase tracking-wider text-whatsapp-foreground">
+              <a href={waLink("Hello, I would like custom uniforms for my team.")} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-full bg-whatsapp px-5 py-3 text-sm font-bold uppercase tracking-wider text-whatsapp-foreground">
                 <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
               </a>
             </div>
@@ -104,7 +107,7 @@ Notes: ${form.notes}`;
               <div className="sm:col-span-1">
                 <label className="block text-xs uppercase tracking-widest text-secondary font-semibold mb-2">Product type</label>
                 <select value={form.product} onChange={(e) => setForm({ ...form, product: e.target.value })} className="w-full px-3 py-2.5 rounded-md border border-border bg-background text-sm">
-                  {["Company Jackets","Reflective Safety Jackets","Construction Uniforms","Corporate Uniforms","Hoodies","Branded T-Shirts","Staff Uniforms","Event Clothing","Other"].map(o => <option key={o}>{o}</option>)}
+                  {["Company Jackets","Reflective Safety Jackets","Construction Uniforms","Corporate Uniforms","Hoodies","Branded T-Shirts","Staff Uniforms","Event Clothing","Other"].map((o) => <option key={o}>{o}</option>)}
                 </select>
               </div>
               <Field label="Quantity" required value={form.quantity} onChange={(v) => setForm({ ...form, quantity: v })} placeholder="e.g. 50" />

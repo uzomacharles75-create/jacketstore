@@ -18,7 +18,7 @@ export const WHATSAPP_NUMBER = "26771234567";
 export const BRAND = {
   name: "J.D & CO BW",
   tagline: "Jacket Manufacturers of Distinction",
-  sub: "Corporate · Sport · Safari",
+  sub: "Custom · Corporate · Sport · Safari · Mining · Logistics",
   email: "info@jdcobw.com",
   phone: "+267 71 234 567",
   location: "Gaborone, Botswana",

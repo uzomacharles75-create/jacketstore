@@ -34,7 +34,7 @@ export function Header() {
           <div className="hidden sm:block leading-tight">
             <div className="display text-xl text-secondary">J.D &amp; CO BW</div>
             <div className="text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-              Jacket Manufacturers of Distinction
+              Custom Apparel for Every Sector
             </div>
           </div>
         </Link>

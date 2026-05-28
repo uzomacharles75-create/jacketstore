@@ -19,7 +19,7 @@ export function MaterialsAndFeaturesSection() {
     {
       icon: Leaf,
       title: "Sustainable Fabrics",
-      description: "Eco-friendly materials that don't compromise on performance or durability."
+      description: "Eco-friendly material options that still hold up in real-world use."
     },
     {
       icon: Sparkles,
@@ -42,12 +42,9 @@ export function MaterialsAndFeaturesSection() {
     <section className="container-x py-16 sm:py-24">
       <div className="text-center mb-12">
         <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-3">Quality First</p>
-        <h2 className="display text-4xl sm:text-5xl text-secondary mb-4">
-          Premium Materials & Features
-        </h2>
+        <h2 className="display text-4xl sm:text-5xl text-secondary mb-4">Premium materials & finishing</h2>
         <p className="text-lg text-secondary/80 max-w-2xl mx-auto">
-          We source the finest sustainable and performance fabrics, offering complete customization 
-          of materials, designs, and specialized features for your outerwear needs.
+          We source sustainable and performance fabrics, then shape them into materials, trims and features that fit the brief.
         </p>
       </div>
 
@@ -58,7 +55,7 @@ export function MaterialsAndFeaturesSection() {
       </div>
 
       <div className="mt-12 p-8 rounded-lg bg-secondary/5 border border-secondary/20">
-        <h3 className="text-2xl font-bold text-secondary mb-4">Why Work With Us?</h3>
+        <h3 className="text-2xl font-bold text-secondary mb-4">Why clients work with us</h3>
         <ul className="space-y-3 text-secondary/80">
           <li className="flex items-start gap-3">
             <span className="text-primary font-bold mt-1">✓</span>
